@@ -10,20 +10,21 @@ interface ResultDisplayProps {
 
 const ResultDisplay: React.FC<ResultDisplayProps> = ({ results, totalLabel, totalValue }) => {
   return (
-    <div className="bg-slate-50 rounded-lg p-6">
-      <div className="space-y-4">
+    <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+      <div className="space-y-3">
         {results.map((result, index) => (
-          <div key={index} className="flex justify-between items-center text-slate-600">
+          <div key={index} className="flex justify-between items-center text-xs text-slate-500">
             <span>{result.label}</span>
-            <span className="font-semibold text-slate-800">
+            <span className="font-bold text-slate-700">
               {result.isCurrency && typeof result.value === 'number' ? formatCurrency(result.value) : result.value}
             </span>
           </div>
         ))}
-        <div className="border-t border-slate-200 my-4"></div>
-        <div className="flex justify-between items-center text-xl">
-          <span className="font-bold text-slate-700">{totalLabel}</span>
-          <span className="font-bold text-indigo-600">{formatCurrency(totalValue)}</span>
+        <div className="border-t border-slate-200/50 pt-3">
+          <div className="flex justify-between items-center">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{totalLabel}</span>
+            <span className="text-lg font-black text-indigo-600">{formatCurrency(totalValue)}</span>
+          </div>
         </div>
       </div>
     </div>

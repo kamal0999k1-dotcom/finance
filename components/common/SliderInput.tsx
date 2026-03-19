@@ -17,9 +17,9 @@ const SliderInput: React.FC<SliderInputProps> = ({ label, value, onChange, min, 
   };
   return (
     <div>
-        <div className="flex justify-between items-center mb-1">
-            <label className="block text-sm font-medium text-slate-600">{label}</label>
-            <span className="text-sm font-semibold text-indigo-600">{value}{suffix}</span>
+        <div className="flex justify-between items-start mb-1 gap-2">
+            <label className="block text-xs font-bold text-slate-500 uppercase tracking-tight flex-1">{label}</label>
+            <span className="text-sm font-black text-indigo-600 whitespace-nowrap">{value}{suffix}</span>
         </div>
       <input
         type="range"

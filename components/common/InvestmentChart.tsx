@@ -35,7 +35,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const InvestmentChart: React.FC<InvestmentChartProps> = ({ pieData, lineData }) => {
   return (
-    <div className="w-full h-80 bg-slate-50/50 p-4 rounded-lg mt-8">
+    <div className="w-full h-64 sm:h-80 bg-slate-50/50 p-2 sm:p-4 rounded-xl mt-6 border border-slate-100">
        <ResponsiveContainer width="100%" height="100%">
         {pieData ? (
           <PieChart>
@@ -44,7 +44,7 @@ const InvestmentChart: React.FC<InvestmentChartProps> = ({ pieData, lineData }) 
               cx="50%"
               cy="50%"
               labelLine={false}
-              outerRadius={100}
+              outerRadius="80%"
               fill="#8884d8"
               dataKey="value"
               nameKey="name"
@@ -54,17 +54,27 @@ const InvestmentChart: React.FC<InvestmentChartProps> = ({ pieData, lineData }) 
               ))}
             </Pie>
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
+            <Legend wrapperStyle={{ fontSize: '10px' }} />
           </PieChart>
         ) : lineData ? (
-          <AreaChart data={lineData} margin={{ top: 5, right: 20, left: 30, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e0e7ff" />
-            <XAxis dataKey="year" tick={{ fill: '#64748b' }} />
-            <YAxis tickFormatter={(value) => `₹${Number(value) / 100000}L`} tick={{ fill: '#64748b' }} />
+          <AreaChart data={lineData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e0e7ff" vertical={false} />
+            <XAxis 
+              dataKey="year" 
+              tick={{ fill: '#64748b', fontSize: 10 }} 
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis 
+              tickFormatter={(value) => `₹${Number(value) >= 100000 ? (Number(value) / 100000).toFixed(1) + 'L' : (Number(value) / 1000).toFixed(0) + 'K'}`} 
+              tick={{ fill: '#64748b', fontSize: 10 }}
+              axisLine={false}
+              tickLine={false}
+            />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
-            <Area type="monotone" dataKey="invested" stackId="1" stroke="#818cf8" fill="#c7d2fe" />
-            <Area type="monotone" dataKey="value" stackId="1" stroke="#4f46e5" fill="#818cf8" />
+            <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
+            <Area type="monotone" dataKey="invested" stackId="1" stroke="#818cf8" fill="#c7d2fe" fillOpacity={0.6} />
+            <Area type="monotone" dataKey="value" stackId="1" stroke="#4f46e5" fill="#818cf8" fillOpacity={0.8} />
           </AreaChart>
         ) : null}
       </ResponsiveContainer>
